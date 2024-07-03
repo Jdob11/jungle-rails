@@ -1,5 +1,5 @@
 class Admin::ProductsController < ApplicationController
-  before_action :authenticate
+  include HttpBasicAuth
 
   def index
     @products = Product.order(id: :desc).all
@@ -37,14 +37,4 @@ class Admin::ProductsController < ApplicationController
       :price
     )
   end
-
-  def authenticate
-    username = ENV['HTTP_BASIC_AUTH_USERNAME']
-    password = ENV['HTTP_BASIC_AUTH_PASSWORD']
-
-    authenticate_or_request_with_http_basic do |provided_username, provided_password|
-      provided_username == username && provided_password == password
-    end
-  end
-
 end
