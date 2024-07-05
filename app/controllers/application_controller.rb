@@ -2,7 +2,11 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   
+  include SalesHelper
+
   protect_from_forgery with: :exception
+
+  before_action :set_active_sale
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -37,5 +41,9 @@ class ApplicationController < ActionController::Base
       expires: 10.days.from_now
     }
     cookies[:cart]
+  end
+  
+  def set_active_sale
+    @active_sale = Sale.active.first if active_sale?
   end
 end
