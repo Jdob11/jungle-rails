@@ -44,6 +44,6 @@ class ApplicationController < ActionController::Base
   end
   
   def set_active_sale
-    @active_sale = Sale.active.first if active_sale?
+    @active_sales = Sale.active if active_sale?
   end
 end
