@@ -12,9 +12,6 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to '/'
     else
-      if @user.errors[:email].include?("has already been taken")
-        flash.now[:alert] = "Email has already been taken. Please use a different email."
-      end
       render :new
     end
   end
