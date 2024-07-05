@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2024_07_05_181435) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "line_items", "orders"
