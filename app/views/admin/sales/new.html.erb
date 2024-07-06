@@ -13,7 +13,7 @@
       <%= form_for [:admin, @sale] do |form| %>
 
         <% if form.object.errors.any? %>
-          <div class="alert alert-danger">
+          <div class="alert alert-danger mt-3">
             <strong>The following errors prevented saving:</strong>
             <ul>
               <% form.object.errors.full_messages.each do |error| %>

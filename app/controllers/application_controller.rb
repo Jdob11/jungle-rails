@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :set_active_sale
+  before_action :set_active_sales
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
     cookies[:cart]
   end
   
-  def set_active_sale
-    @active_sales = Sale.active if active_sale?
+  def set_active_sales
+    @active_sales = Sale.active.to_a
   end
 end
