@@ -28,6 +28,11 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
 
+    it 'should fail when password/confirmation given do not meet minimum length' do
+      user = User.new(valid_attributes.merge(password: "1234", password_confirmation: "1234"))
+      expect(user).not_to be_valid
+    end
+
     it 'should fail when email is not given' do
       user = User.new(valid_attributes.merge(email: nil))
       expect(user).not_to be_valid
@@ -57,5 +62,5 @@ RSpec.describe User, type: :model do
   end
 end
 
-# user2.valid?
-# puts user2.errors.full_messages
+    # user.valid?
+    # puts user.errors.full_messages
