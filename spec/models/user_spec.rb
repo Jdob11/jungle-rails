@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'Validations' do
+  let(:valid_attributes) do
+    {
+      email: 'Ban@na.com',
+      password: 'PaSsWoRd',
+      password_confirmation: 'PaSsWoRd',
+      first_name: 'El',
+      last_name: 'Jefe'
+    }
+  end
 
-    let(:valid_attributes) do
-      {
-        email: 'Ban@na.com',
-        password: 'PaSsWoRd',
-        password_confirmation: 'PaSsWoRd',
-        first_name: 'El',
-        last_name: 'Jefe'
-      }
-    end
+  describe 'Validations' do
 
     it 'should save when all fields are given' do
       user = User.new(valid_attributes)
@@ -58,6 +58,28 @@ RSpec.describe User, type: :model do
     it 'should fail when last_name is not given' do
       user = User.new(valid_attributes.merge(last_name: nil))
       expect(user).not_to be_valid
+    end
+  end
+
+  describe '.authenticate_with_credentials' do
+
+    before(:each) do
+      @user = User.create!(valid_attributes)
+    end
+
+    it 'authenticates when given legitimate credentials' do
+      authenticated_user = User.authenticate_with_credentials('Ban@na.com', 'PaSsWoRd')
+      expect(authenticated_user).to eq(@user)
+    end
+
+    it 'does not authenticates when given wrong password' do
+      authenticated_user = User.authenticate_with_credentials('Ban@na.com', 'wrongpassword')
+      expect(authenticated_user).to be_nil
+    end
+
+    it 'does not authenticates when given wrong email' do
+      authenticated_user = User.authenticate_with_credentials('wrong@email.com', 'PaSsWoRd')
+      expect(authenticated_user).to be_nil
     end
   end
 end
