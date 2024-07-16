@@ -93,6 +93,3 @@ RSpec.describe User, type: :model do
     end
   end
 end
-
-    # user.valid?
-    # puts user.errors.full_messages
