@@ -25,5 +25,10 @@ RSpec.describe Product, type: :model do
       product = Product.new(valid_attributes.merge(price_cents: nil))
       expect(product).not_to be_valid
     end
+
+    it 'should fail when quantity is not given' do
+      product = Product.new(valid_attributes.merge(quantity: nil))
+      expect(product).not_to be_valid
+    end
   end
 end
