@@ -8,7 +8,12 @@ RSpec.describe Product, type: :model do
     end
 
     let(:valid_attributes) do
-      { name: 'Dandelion', price_cents: 500, quantity: 20000, category: @category }
+      {
+        name: 'Dandelion',
+        price_cents: 500,
+        quantity: 20000,
+        category: @category
+      }
     end
 
     it 'should save when all fields are given' do
