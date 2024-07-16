@@ -81,6 +81,16 @@ RSpec.describe User, type: :model do
       authenticated_user = User.authenticate_with_credentials('wrong@email.com', 'PaSsWoRd')
       expect(authenticated_user).to be_nil
     end
+
+    it 'authenticates when given legitimate email with white space' do
+      authenticated_user = User.authenticate_with_credentials('  Ban@na.com  ', 'PaSsWoRd')
+      expect(authenticated_user).to eq(@user)
+    end
+
+    it 'authenticates when given legitimate email with wrong case' do
+      authenticated_user = User.authenticate_with_credentials('bAN@NA.COM', 'PaSsWoRd')
+      expect(authenticated_user).to eq(@user)
+    end
   end
 end
 
