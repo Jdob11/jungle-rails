@@ -30,5 +30,10 @@ RSpec.describe Product, type: :model do
       product = Product.new(valid_attributes.merge(quantity: nil))
       expect(product).not_to be_valid
     end
+
+    it 'should fail when category is not given' do
+      product = Product.new(valid_attributes.merge(category: nil))
+      expect(product).not_to be_valid
+    end
   end
 end
