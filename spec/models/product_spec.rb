@@ -15,14 +15,17 @@ RSpec.describe Product, type: :model do
       product = Product.new(valid_attributes)
       expect(product).to be_valid
     end
-
+    
     it 'should fail when name is not given' do
       product = Product.new(valid_attributes.merge(name: nil))
       expect(product).not_to be_valid
+      expect(product.errors.full_messages).to include("Name can't be blank")
     end
-
+    
     it 'should fail when price is not given' do
       product = Product.new(valid_attributes.merge(price_cents: nil))
+      product.valid?
+      puts product.errors.full_messages
       expect(product).not_to be_valid
     end
 
