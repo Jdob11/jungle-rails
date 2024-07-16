@@ -17,5 +17,30 @@ RSpec.describe User, type: :model do
       user = User.new(valid_attributes)
       expect(user).to be_valid
     end
+
+    it 'should fail when password/confirmation is not given' do
+      user = User.new(valid_attributes.merge(password: nil, password_confirmation: nil))
+      expect(user).not_to be_valid
+    end
+
+    it 'should fail when password/confirmation given do not match' do
+      user = User.new(valid_attributes.merge(password: "1234", password_confirmation: "4321"))
+      expect(user).not_to be_valid
+    end
+
+    it 'should fail when email given is already in database' do
+      user1 = User.create!(valid_attributes.merge(email: 'user@email.com'))
+      user2 = User.new(valid_attributes.merge(email: 'user@email.com'))
+      expect(user2).not_to be_valid
+    end
+
+    it 'should fail when email given is already in database (case insensitive)' do
+      user1 = User.create!(valid_attributes.merge(email: 'USER@email.com'))
+      user2 = User.new(valid_attributes.merge(email: 'user@email.com'))
+      expect(user2).not_to be_valid
+    end
   end
 end
+
+# user2.valid?
+# puts user2.errors.full_messages
