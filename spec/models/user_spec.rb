@@ -28,6 +28,11 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
 
+    it 'should fail when email is not given' do
+      user = User.new(valid_attributes.merge(email: nil))
+      expect(user).not_to be_valid
+    end
+
     it 'should fail when email given is already in database' do
       user1 = User.create!(valid_attributes.merge(email: 'user@email.com'))
       user2 = User.new(valid_attributes.merge(email: 'user@email.com'))
@@ -38,6 +43,16 @@ RSpec.describe User, type: :model do
       user1 = User.create!(valid_attributes.merge(email: 'USER@email.com'))
       user2 = User.new(valid_attributes.merge(email: 'user@email.com'))
       expect(user2).not_to be_valid
+    end
+
+    it 'should fail when first_name is not given' do
+      user = User.new(valid_attributes.merge(first_name: nil))
+      expect(user).not_to be_valid
+    end
+
+    it 'should fail when last_name is not given' do
+      user = User.new(valid_attributes.merge(last_name: nil))
+      expect(user).not_to be_valid
     end
   end
 end
