@@ -1,11 +1,6 @@
 describe('Home Page', () => {
 
-  // it('visits the home page', () => {
-  //   cy.visit('http://localhost:3000')
-  // })
-
   beforeEach(() => {
-    // Ensure each test starts from a known state (optional)
     cy.visit('http://localhost:3000');
   });
 
